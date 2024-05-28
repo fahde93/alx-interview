@@ -1,75 +1,86 @@
 #!/usr/bin/python3
 """
-This module contains a program that solves the N Queens problem.
-
-The N Queens problem is the challenge of placing N non-attacking queens on an
-N×N chessboard.
+The N queens puzzle
 """
-
 import sys
 
 
-def solve_n_queens(n):
-    """
-    Solve the N Queens problem using backtracking.
+def is_safe(board, row, col, N):
+    # Check if the current position is safe for a queen
+    # Check the row
+    for i in range(col):
+        if board[row][i] == 1:
+            return False
 
-    Args:
-        n (int): The number of queens and the size of the chessboard.
+    # Check the upper diagonal
+    for i, j in zip(range(row, -1, -1), range(col, -1, -1)):
+        if board[i][j] == 1:
+            return False
 
-    Returns:
-        list: A list of all possible solutions. Each solution is represented
-              as a list of integers where the value of i-th integer represents
-              the column number of the queen placed in the i-th row.
-    """
-    def can_place(pos, ocuppied_positions):
-        for i in range(len(ocuppied_positions)):
-            if ocuppied_positions[i] == pos or \
-                ocuppied_positions[i] - i == pos - len(ocuppied_positions) or \
-                    ocuppied_positions[i] + i == pos + len(ocuppied_positions):
-                return False
+    # Check the lower diagonal
+    for i, j in zip(range(row, N, 1), range(col, -1, -1)):
+        if board[i][j] == 1:
+            return False
+
+    return True
+
+
+def solve_nqueens(N):
+    board = [[0] * N for _ in range(N)]
+    solutions = []
+    solve_util(board, 0, N, solutions)
+    return solutions
+
+
+def solve_util(board, col, N, solutions):
+    if col >= N:
+        solution = []
+        for i in range(N):
+            row_str = ""
+            for j in range(N):
+                if board[i][j] == 1:
+                    row_str += "Q"
+                else:
+                    row_str += "."
+            solution.append(row_str)
+        solutions.append(solution)
         return True
 
-    def place_queens(n, index, ocuppied_positions, all_ocuppied_positions):
-        if index == n:
-            all_ocuppied_positions.append(ocuppied_positions[:])
-            return
+    for i in range(N):
+        if is_safe(board, i, col, N):
+            board[i][col] = 1
 
-        for i in range(n):
-            if can_place(i, ocuppied_positions):
-                ocuppied_positions.append(i)
-                place_queens(n, index + 1, ocuppied_positions,
-                             all_ocuppied_positions)
-                ocuppied_positions.pop()
+            solve_util(board, col + 1, N, solutions)
 
-    all_ocuppied_positions = []
-    place_queens(n, 0, [], all_ocuppied_positions)
-    return all_ocuppied_positions
+            board[i][col] = 0
+
+    return False
 
 
-def main():
-    """
-    The main function of the program. It checks the command line arguments and
-    calls the function to solve the N Queens problem.
-    """
+def print_solutions(solutions):
+    for solution in solutions:
+        for row in solution:
+            print(row)
+        print()
+
+
+if __name__ == "__main__":
     if len(sys.argv) != 2:
         print("Usage: nqueens N")
         sys.exit(1)
 
     try:
-        n = int(sys.argv[1])
+        N = int(sys.argv[1])
     except ValueError:
         print("N must be a number")
         sys.exit(1)
 
-    if n < 4:
+    if N < 4:
         print("N must be at least 4")
         sys.exit(1)
 
-    solutions = solve_n_queens(n)
+    solutions = solve_nqueens(N)
     for solution in solutions:
-        result = [[i, pos] for i, pos in enumerate(solution)]
-        print(result)
-
-
-if __name__ == "__main__":
-    main()
+        for row in solution:
+            print(row)
+        print()
