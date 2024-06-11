@@ -1,3 +1,6 @@
+<<<<<<< HEAD
+0x05-nqueens
+=======
 # 0x05. N Queens
 
 ## Algorithm
@@ -9,10 +12,10 @@ This repository contains a Python implementation of the N Queens puzzle-solving 
 
 ### Project Information
 - Weight: 1
-- Project Start: Feb 5, 2024, 4:00 AM
-- Project End: Feb 9, 2024, 4:00 AM
-- Checker Release: Feb 6, 2024, 4:00 AM
-- Auto Review Deadline: Feb 9, 2024, 4:00 AM
+- Project Start: May 27, 2024 4:00 AM,
+- Project End: May 31, 2024 4:00 AM
+- Checker Release:  May 28, 2024 4:00 AM
+- Auto Review Deadline:  May 28, 2024 4:00 AM
 
 ## Requirements
 
@@ -66,3 +69,4 @@ $ ./0-nqueens.py 6
 - GitHub repository: [alx-interview](https://github.com/sabrallah/alx-interview/tree/master)
 - Directory: [0x05-nqueens](https://github.com/sabrallah/alx-interview/tree/master/0x05-nqueens) 
 - File: `0-nqueens.py`
+>>>>>>> f1797c61d8d29d79edc78a2bf3a1804130c4cbf1
