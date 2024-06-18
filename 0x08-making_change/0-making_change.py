@@ -1,24 +1,10 @@
 #!/usr/bin/python3
-""" making_change module """
+"""
+Main file for testing
+"""
 
+makeChange = __import__('0-making_change').makeChange
 
-def makeChange(coins, total):
-    """
-    Returns: the fewest number of coins needed to meet total
-    if total is 0 or less, return 0
-    if total cannot be met by any combination of the coins
-    return -1
-    """
-    if not coins or coins is None:
-        return -1
-    if total <= 0:
-        return 0
-    changes = 0
-    coins = sorted(coins)[::-1]
-    for coinz in coins:
-        while coinz <= total:
-            total -= coinz
-            changes += 1
-        if (total == 0):
-            return changes
-    return -1
+print(makeChange([1, 2, 25], 37))
+
+print(makeChange([1256, 54, 48, 16, 102], 1453))
